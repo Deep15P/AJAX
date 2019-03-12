@@ -1,0 +1,8 @@
+#gifImages {
+    display: flex;
+flex-wrap: wrap;
+};
+
+body{
+    padding: 50px;
+}

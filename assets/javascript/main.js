@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).ready(function () {
 
     var nbaArray = ["nba", "miami heat", "basketball", "nba playoffs"];
 
@@ -9,14 +9,14 @@ $(document).ready(function(){
 
         for (let i = 0; i < nbaArray.length; i++) {
             var btn = $("<button>");
-            btn.addClass("nbaClass"); 
+            btn.addClass("nbaClass");
             btn.attr("data-name", nbaArray[i]);
             btn.text(nbaArray[i]);
             $("#buttons").append(btn);
         }
     };
 
-    $("#buttonToClick").on("click", function(event){
+    $("#buttonToClick").on("click", function (event) {
         event.preventDefault();
         var addedData = $("#userChoice").val().trim();
         if (addedData != "") {
@@ -26,7 +26,7 @@ $(document).ready(function(){
         }
     })
 
-$(document).on("click", ".nbaClass", function() {
+    $(document).on("click", ".nbaClass", function () {
 
         var nba = $(this).attr("data-name");
         var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + nba + "&rating=g&limit=10&api_key=ZBwLge5PL0tz4xUHC7ZJGqJ6ahDqlzne";;
@@ -34,16 +34,16 @@ $(document).on("click", ".nbaClass", function() {
         $.ajax({
             url: queryURL,
             method: "GET"
-        }).then(function(response){
+        }).then(function (response) {
             console.log(response);
-           
+
             // look at the response in the console 
             // create a variable called rating and save the response.rating 
             // append it in the id of "#gifImages"
             var results = response.data;
-            
 
-            for (var i=0; i < results.length; i++) {
+
+            for (var i = 0; i < results.length; i++) {
                 var dataImage = $("<img>");
                 dataImage.attr("src", results[i].images.fixed_height_still.url);
                 dataImage.attr("data-animate", results[i].images.fixed_height.url);
@@ -61,23 +61,20 @@ $(document).on("click", ".nbaClass", function() {
                 $("#gifImages").prepend(newItemdiv);
             }
         });
-        
+
+        $("#gifImages").on("click", ".gif", function () {
+            var state = $(this).attr("data-state");
+            if (state === "still") {
+                $(this).attr("src", $(this).attr("data-animate"));
+                $(this).attr("data-state", "animate");
+            }
+            else if (state === "animate") {
+                $(this).attr("src", $(this).attr("data-still"));
+                $(this).attr("data-state", "still")
+            }
+        });
     });
-    startButtons( nbaArray, "#buttons");
-    
-
-
-
-    // jquery on click event function for the buttons 
-    // gifs need to show up and play 
-    // for loop might help with that
-
-
-
-
-
-
-// displayNba();
+    startButtons(nbaArray, "#buttons");
 
 });
 
