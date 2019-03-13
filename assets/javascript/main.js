@@ -2,8 +2,8 @@ $(document).ready(function () {
 
     var nbaArray = ["nba", "miami heat", "basketball", "nba playoffs"];
 
-    // startButtons();
-
+    
+// thsis is where we get out buttons to show up from the array above. 
     function startButtons() {
         $("#buttons").empty();
 
@@ -15,7 +15,7 @@ $(document).ready(function () {
             $("#buttons").append(btn);
         }
     };
-
+// this is where we make the submit button work with what the user has inputed. 
     $("#buttonToClick").on("click", function (event) {
         event.preventDefault();
         var addedData = $("#userChoice").val().trim();
@@ -25,7 +25,7 @@ $(document).ready(function () {
             $("#userChoice").val();
         }
     })
-
+// we link to the api so it can pull the right gifs
     $(document).on("click", ".nbaClass", function () {
 
         var nba = $(this).attr("data-name");
@@ -42,7 +42,7 @@ $(document).ready(function () {
             // append it in the id of "#gifImages"
             var results = response.data;
 
-
+// this is where the attributes are created for results
             for (var i = 0; i < results.length; i++) {
                 var dataImage = $("<img>");
                 dataImage.attr("src", results[i].images.fixed_height_still.url);
@@ -61,7 +61,7 @@ $(document).ready(function () {
                 $("#gifImages").prepend(newItemdiv);
             }
         });
-
+// the gifs can be clicked to play or stay in pause state. 
         $("#gifImages").on("click", ".gif", function () {
             var state = $(this).attr("data-state");
             if (state === "still") {
